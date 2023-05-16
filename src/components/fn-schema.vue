@@ -1,22 +1,25 @@
 <script setup lang="ts">
-import naiveUISchemaParser, { NaiveUISchema } from "../module/schema/schema.parser.ts";
-import {defineAsyncComponent, h} from 'vue'
+import naiveUISchemaRender, { NaiveUISchema } from "../module/schema/schema.parser.ts";
 
 const props = defineProps<{
   schema: NaiveUISchema
 }>()
 
 
-const node = naiveUISchemaParser(props.schema)
+const NFormNode = naiveUISchemaRender(props.schema)
+console.log(NFormNode)
 
 </script>
 
 <template>
   <div class="schema">
       <h1>Test</h1>
-      <template v-for="i of node">
-          <component :is="i"/>
-      </template>
+      <Suspense>
+          <n-form-node/>
+          <template #fallback>
+              ...Loading
+          </template>
+      </Suspense>
   </div>
 </template>
 

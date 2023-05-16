@@ -4,8 +4,42 @@ import { NaiveUISchema } from "../module/schema/schema.parser.ts";
 
 const json = [
     {
-        $type: 'input',
-        value: 'test'
+        $type: 'n-form',
+        $children: [
+            {
+                $type: 'n-form-item',
+                path: 'user.name',
+                $children: [
+                    {
+                        $type: 'n-input',
+                        placeholder: 'Input Name',
+                        value: '$data.user.name'
+                    }
+                ]
+            },
+            {
+                $type: 'n-form-item',
+                path: 'user.email',
+                $children: [
+                    {
+                        $type: 'n-input',
+                        type: 'email',
+                        placeholder: 'Input Email',
+                        value: '$data.user.email'
+                    }
+                ]
+            },
+            {
+                $type: 'n-form-item',
+                $children: [
+                    {
+                        $type: 'n-button',
+                        $children: 'Send Form'
+                    }
+                ]
+            },
+
+        ]
     }
 ] as NaiveUISchema
 
