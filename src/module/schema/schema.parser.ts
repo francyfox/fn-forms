@@ -1,7 +1,7 @@
 // @ts-ignore
 import NaiveUISchema = FNScheme.NaiveUISchema;
-import {toPascalCase} from "../../helper/helper.path.ts";
-import {h, RendererElement, RendererNode, resolveComponent, VNode} from "vue";
+import {resolve, toPascalCase} from "../../helper/helper.path.ts";
+import {h, ref, Ref, RendererElement, RendererNode, resolveComponent, VNode} from "vue";
 
 export enum NaiveUITypes {
   Form = 'n-form',
@@ -14,16 +14,23 @@ export type NaiveUISchema = NaiveUISchemaEl[]
 export declare interface NaiveUISchemaEl {
   $type: NaiveUITypes
   $children: NaiveUISchema | string
+  $props: { [key: string]: unknown }
 }
 
+/**@deprecated **/
 export const fnComponentPath = (name: string) => `/node_modules/naive-ui/es/${name}/src/${toPascalCase(name)}.js`
-export default function naiveUISchemaRender(json: NaiveUISchema) {
+
+export const resolveRefVarByPath = (value: string, data: Ref<object>) => {
+  const path = value.replace('$data.', '')
+  return resolve(path, data, '.')
+}
+export default function naiveUISchemaRender(json: NaiveUISchema, data: Ref<object>) {
   const [first] = json
 
-  return renderElement(first)
+  return renderElement(first, data)
 }
 
-export function renderElement(_el: NaiveUISchemaEl) {
+export function renderElement(_el: NaiveUISchemaEl, formData: Ref<object>) {
   const index = Object.values(NaiveUITypes).indexOf(_el.$type as unknown as NaiveUITypes)
 
   if (index === -1) {
@@ -33,14 +40,23 @@ export function renderElement(_el: NaiveUISchemaEl) {
   }
 
   const { $type, ...schemeEl } = _el
-  const { $children, ...props} = schemeEl
+  let { $children, $props } = schemeEl
   const component = resolveComponent(_el.$type)
 
-  return h(component, props, renderChildren($children))
+  switch (_el.$type) {
+    case NaiveUITypes.Input:
+      $props.value = ref(resolveRefVarByPath($props.value, formData)) as Ref<string>
+      $props = {
+        ...$props,
+        onUpdateValue: (v: any) => $props.value.value = v
+      }
+  }
+
+  return h(component, $props, renderChildren($children, formData))
 }
 
-export function renderChildren(children: NaiveUISchema | string): VNode<RendererNode, RendererElement, {[p: string]: any}>[] | string {
+export function renderChildren(children: NaiveUISchema | string, formData: Ref<object>): VNode<RendererNode, RendererElement, {[p: string]: any}>[] | string {
   return (Array.isArray(children))
-      ? children.map((i: NaiveUISchemaEl) => renderElement(i))
+      ? children.map((i: NaiveUISchemaEl) => renderElement(i, formData))
       : children
 }

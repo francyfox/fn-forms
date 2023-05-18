@@ -1,31 +1,48 @@
 <script setup lang="ts">
 import FnSchema from "./fn-schema.vue";
 import { NaiveUISchema } from "../module/schema/schema.parser.ts";
+import {ref} from "vue";
 
+const formData = ref({
+  user: {
+    name: 'francyfox',
+    email: 'test@mail.ru'
+  }
+})
 const json = [
     {
         $type: 'n-form',
         $children: [
             {
                 $type: 'n-form-item',
-                path: 'user.name',
+                $props: {
+                  label: 'Name',
+                  path: 'user.name',
+                },
                 $children: [
                     {
                         $type: 'n-input',
-                        placeholder: 'Input Name',
-                        value: '$data.user.name'
+                        $props: {
+                          placeholder: 'Input Name',
+                          value: '$data.user.name',
+                        }
                     }
                 ]
             },
             {
                 $type: 'n-form-item',
-                path: 'user.email',
+                $props: {
+                  label: 'Email',
+                  path: 'user.email',
+                },
                 $children: [
                     {
                         $type: 'n-input',
-                        type: 'email',
-                        placeholder: 'Input Email',
-                        value: '$data.user.email'
+                        $props: {
+                          type: 'email',
+                          placeholder: 'Input Email',
+                          value: '$data.user.email'
+                        }
                     }
                 ]
             },
@@ -47,7 +64,8 @@ const json = [
 
 <template>
     <n-config-provider>
-        <fn-schema :schema="json"/>
+        <fn-schema v-model:data="formData" :schema="json"/>
+        <pre>{{ JSON.stringify(formData.user, null, 4) }}</pre>
     </n-config-provider>
 </template>
 
