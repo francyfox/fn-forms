@@ -13,13 +13,12 @@ export function resolve(path: string, obj: object, separator='.'): any {
 }
 
 export const nestedObjectByPath = (path: string, val: any) => {
-    const obj = {}
+    const obj = {} as any
     const keys = path.replace('$data.', '').split('.');
     const lastKey = keys.pop();
     const lastObj = keys.reduce((obj, key) =>
             obj[key] = obj[key] || {},
         obj);
-    lastObj[lastKey] = val;
-
+    if (lastKey) lastObj[lastKey] = val
     return obj
 }

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import naiveUISchemaRender, { NaiveUISchema } from "../module/schema/schema.parser.ts";
-import {PropType, reactive, Ref, watchEffect} from "vue";
+import {useSlots} from "vue";
 
+const slots = useSlots()
 const props = withDefaults(defineProps<{
   data: any,
   schema: NaiveUISchema

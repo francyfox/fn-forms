@@ -7,15 +7,17 @@ import merge from "deepmerge";
 export enum NaiveUITypes {
   Form = 'n-form',
   Input = 'n-input',
+  InputNumber = 'n-input-number',
   FormItem = 'n-form-item',
-  Button = 'n-button'
+  Button = 'n-button',
+  Checkbox = 'n-checkbox'
 }
 
 export type NaiveUISchema = NaiveUISchemaEl[]
 export declare interface NaiveUISchemaEl {
   $type: NaiveUITypes
   $children: NaiveUISchema | string
-  $props: { [key: string]: unknown }
+  $props: any
 }
 
 /**@deprecated **/
@@ -44,28 +46,52 @@ export function renderElement(_el: NaiveUISchemaEl, formData: Ref<object>) {
   let { $children, $props } = schemeEl
   const component = resolveComponent(_el.$type)
 
-  switch (_el.$type) {
-    case NaiveUITypes.Input:
-      const path = $props.value
-      $props.value = ref(resolveRefVarByPath(path, formData)) as Ref<string>
-      $props = {
-        ...$props,
-        onUpdateValue: (v: any) => {
-          const inputDeep = nestedObjectByPath(path, v)
-          const merged = merge(formData, inputDeep, {
-            arrayMerge: () => path.replace('$data.', '').split('.')
-          })
-          Object.assign(formData, merged)
-          return $props.value.value = v
-        }
-      }
+  if (_el.$type === NaiveUITypes.Input
+      || _el.$type === NaiveUITypes.InputNumber
+  ) {
+    const path = $props.value as string
+    $props.value = ref(resolveRefVarByPath(path, formData)) as Ref<string>
+    $props = {
+      ...$props,
+      onUpdateValue: (v: any) => updateFormItemValue({ $props, v, path, formData })
+    }
+  } else if(_el.$type === NaiveUITypes.Checkbox) {
+    const path = $props.value as string
+    $props.checked = ref(resolveRefVarByPath(path, formData)) as Ref<string>
+    $props = {
+      ...$props,
+      onUpdateChecked: (v: any) => updateFormItemValue({ $props, v, path, formData })
+    }
   }
 
+  // @ts-ignore
   return h(component, $props, renderChildren($children, formData))
 }
 
-export function renderChildren(children: NaiveUISchema | string, formData: Ref<object>): VNode<RendererNode, RendererElement, {[p: string]: any}>[] | string {
+export function renderChildren(children: NaiveUISchema | string, formData: Ref<object>): VNode<RendererNode, RendererElement, {
+  [p: string]: any
+}>[] | { default: () => NaiveUISchema | string } {
   return (Array.isArray(children))
       ? children.map((i: NaiveUISchemaEl) => renderElement(i, formData))
-      : children
+      : { default: () => children ?? '' }
 }
+
+type fnValueArguments = {
+  $props: any,
+  v: any,
+  path: string,
+  formData: any
+}
+
+export function updateFormItemValue(argument: fnValueArguments) {
+  const { $props, v, path, formData } = argument
+  const inputDeep = nestedObjectByPath(path, v)
+  const merged = merge(formData, inputDeep, {
+    arrayMerge: () => path.replace('$data.', '').split('.')
+  })
+  Object.assign(formData, merged)
+  return ($props.value.value)
+      ? $props.value.value = v
+      : $props.checked.value = v
+}
+

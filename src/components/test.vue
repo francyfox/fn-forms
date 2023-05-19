@@ -1,70 +1,23 @@
 <script setup lang="ts">
 import FnSchema from "./fn-schema.vue";
 import { NaiveUISchema } from "../module/schema/schema.parser.ts";
+import TestSchema from "./test-schema.ts";
 import {ref} from "vue";
 
 const formData = ref({
   user: {
     name: 'francyfox',
-    email: 'test@mail.ru'
+    email: 'test@mail.ru',
+    age: 16,
+    agree: true
   }
 })
-const json = [
-    {
-        $type: 'n-form',
-        $children: [
-            {
-                $type: 'n-form-item',
-                $props: {
-                  label: 'Name',
-                  path: 'user.name',
-                },
-                $children: [
-                    {
-                        $type: 'n-input',
-                        $props: {
-                          placeholder: 'Input Name',
-                          value: '$data.user.name',
-                        }
-                    }
-                ]
-            },
-            {
-                $type: 'n-form-item',
-                $props: {
-                  label: 'Email',
-                  path: 'user.email',
-                },
-                $children: [
-                    {
-                        $type: 'n-input',
-                        $props: {
-                          type: 'email',
-                          placeholder: 'Input Email',
-                          value: '$data.user.email'
-                        }
-                    }
-                ]
-            },
-            {
-                $type: 'n-form-item',
-                $children: [
-                    {
-                        $type: 'n-button',
-                        $children: 'Send Form'
-                    }
-                ]
-            },
-
-        ]
-    }
-] as NaiveUISchema
 
 </script>
 
 <template>
     <n-config-provider>
-        <fn-schema v-model:data="formData" :schema="json"/>
+        <fn-schema v-model:data="formData" :schema="TestSchema"/>
         <pre>{{ JSON.stringify(formData.user, null, 4) }}</pre>
     </n-config-provider>
 </template>
