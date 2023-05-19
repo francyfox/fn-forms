@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import naiveUISchemaRender, { NaiveUISchema } from "../module/schema/schema.parser.ts";
-import { Ref } from "vue";
+import {PropType, reactive, Ref, watchEffect} from "vue";
 
-const props = defineProps<{
-  data: Ref<object>
+const props = withDefaults(defineProps<{
+  data: any,
   schema: NaiveUISchema
-}>()
+}>(), {
+  data: {}
+})
 defineEmits(['update:data'])
 
 const NFormNode = naiveUISchemaRender(props.schema, props.data)

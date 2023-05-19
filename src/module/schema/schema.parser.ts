@@ -1,7 +1,8 @@
 // @ts-ignore
 import NaiveUISchema = FNScheme.NaiveUISchema;
-import {resolve, toPascalCase} from "../../helper/helper.path.ts";
+import {nestedObjectByPath, resolve, toPascalCase} from "../../helper/helper.path.ts";
 import {h, ref, Ref, RendererElement, RendererNode, resolveComponent, VNode} from "vue";
+import merge from "deepmerge";
 
 export enum NaiveUITypes {
   Form = 'n-form',
@@ -45,10 +46,18 @@ export function renderElement(_el: NaiveUISchemaEl, formData: Ref<object>) {
 
   switch (_el.$type) {
     case NaiveUITypes.Input:
-      $props.value = ref(resolveRefVarByPath($props.value, formData)) as Ref<string>
+      const path = $props.value
+      $props.value = ref(resolveRefVarByPath(path, formData)) as Ref<string>
       $props = {
         ...$props,
-        onUpdateValue: (v: any) => $props.value.value = v
+        onUpdateValue: (v: any) => {
+          const inputDeep = nestedObjectByPath(path, v)
+          const merged = merge(formData, inputDeep, {
+            arrayMerge: () => path.replace('$data.', '').split('.')
+          })
+          Object.assign(formData, merged)
+          return $props.value.value = v
+        }
       }
   }
 
