@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import FnSchema from "./fn-schema.vue";
-import { NaiveUISchema } from "../module/schema/schema.parser.ts";
 import TestSchema from "./test-schema.ts";
 import {ref} from "vue";
 
@@ -9,7 +8,8 @@ const formData = ref({
     name: 'francyfox',
     email: 'test@mail.ru',
     age: 16,
-    agree: true
+    agree: true,
+    gender: 'song4'
   }
 })
 

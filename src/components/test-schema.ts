@@ -5,36 +5,41 @@ export default [
         $type: 'n-form',
         $children: [
             {
-                $type: 'n-form-item',
-                $props: {
-                    label: 'Name',
-                    path: 'user.name',
-                },
+                $type: 'n-space',
                 $children: [
                     {
-                        $type: 'n-input',
+                        $type: 'n-form-item',
                         $props: {
-                            placeholder: 'Input Name',
-                            value: '$data.user.name',
-                        }
-                    }
-                ]
-            },
-            {
-                $type: 'n-form-item',
-                $props: {
-                    label: 'Email',
-                    path: 'user.email',
-                },
-                $children: [
+                            label: 'Name',
+                            path: 'user.name',
+                        },
+                        $children: [
+                            {
+                                $type: 'n-input',
+                                $props: {
+                                    placeholder: 'Input Name',
+                                    value: '$data.user.name',
+                                }
+                            }
+                        ]
+                    },
                     {
-                        $type: 'n-input',
+                        $type: 'n-form-item',
                         $props: {
-                            type: 'email',
-                            placeholder: 'Input Email',
-                            value: '$data.user.email'
-                        }
-                    }
+                            label: 'Email',
+                            path: 'user.email',
+                        },
+                        $children: [
+                            {
+                                $type: 'n-input',
+                                $props: {
+                                    type: 'email',
+                                    placeholder: 'Input Email',
+                                    value: '$data.user.email'
+                                }
+                            }
+                        ]
+                    },
                 ]
             },
             {
@@ -67,6 +72,32 @@ export default [
                         $props: {
                             placeholder: 'Agree?',
                             value: '$data.user.agree',
+                        }
+                    }
+                ]
+            },
+            {
+                $type: 'n-form-item',
+                $props: {
+                    label: 'Gender',
+                    path: 'user.gender',
+                },
+                $children: [
+                    {
+                        $type: 'n-select',
+                        $children: 'I agree',
+                        $props: {
+                            value: '$data.user.gender',
+                            options: [
+                                {
+                                    label: 'Nowhere Man',
+                                    value: 'song4'
+                                },
+                                {
+                                    label: 'Think For Yourself',
+                                    value: 'song5'
+                                },
+                            ]
                         }
                     }
                 ]

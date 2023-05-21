@@ -10,7 +10,11 @@ export enum NaiveUITypes {
   InputNumber = 'n-input-number',
   FormItem = 'n-form-item',
   Button = 'n-button',
-  Checkbox = 'n-checkbox'
+  Space = 'n-space',
+  Select = 'n-select',
+  Checkbox = 'n-checkbox',
+  Radio = 'n-radio',
+  RadioGroup = 'n-radio-group'
 }
 
 export type NaiveUISchema = NaiveUISchemaEl[]
@@ -48,6 +52,7 @@ export function renderElement(_el: NaiveUISchemaEl, formData: Ref<object>) {
 
   if (_el.$type === NaiveUITypes.Input
       || _el.$type === NaiveUITypes.InputNumber
+      || _el.$type === NaiveUITypes.Select
   ) {
     const path = $props.value as string
     $props.value = ref(resolveRefVarByPath(path, formData)) as Ref<string>
@@ -57,7 +62,7 @@ export function renderElement(_el: NaiveUISchemaEl, formData: Ref<object>) {
     }
   } else if(_el.$type === NaiveUITypes.Checkbox) {
     const path = $props.value as string
-    $props.checked = ref(resolveRefVarByPath(path, formData)) as Ref<string>
+    $props.value = ref(resolveRefVarByPath(path, formData)) as Ref<string>
     $props = {
       ...$props,
       onUpdateChecked: (v: any) => updateFormItemValue({ $props, v, path, formData })

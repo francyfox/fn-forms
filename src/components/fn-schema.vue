@@ -18,12 +18,14 @@ const NFormNode = naiveUISchemaRender(props.schema, props.data)
 <template>
   <div class="schema">
       <h1>Test</h1>
-      <Suspense>
+      <KeepAlive>
+        <Suspense>
           <n-form-node/>
           <template #fallback>
-              ...Loading
+            Loading...
           </template>
-      </Suspense>
+        </Suspense>
+      </KeepAlive>
   </div>
 </template>
 
