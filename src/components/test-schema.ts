@@ -1,4 +1,4 @@
-import {NaiveUISchema} from "../module/schema/schema.parser.ts";
+import { NaiveUISchema } from '../module/schema/schema.parser.ts';
 
 export default [
     {
@@ -19,9 +19,9 @@ export default [
                                 $props: {
                                     placeholder: 'Input Name',
                                     value: '$data.user.name',
-                                }
-                            }
-                        ]
+                                },
+                            },
+                        ],
                     },
                     {
                         $type: 'n-form-item',
@@ -35,12 +35,12 @@ export default [
                                 $props: {
                                     type: 'email',
                                     placeholder: 'Input Email',
-                                    value: '$data.user.email'
-                                }
-                            }
-                        ]
+                                    value: '$data.user.email',
+                                },
+                            },
+                        ],
                     },
-                ]
+                ],
             },
             {
                 $type: 'n-form-item',
@@ -54,10 +54,10 @@ export default [
                         $props: {
                             placeholder: 'Input age',
                             clearable: true,
-                            value: '$data.user.age'
-                        }
-                    }
-                ]
+                            value: '$data.user.age',
+                        },
+                    },
+                ],
             },
             {
                 $type: 'n-form-item',
@@ -72,9 +72,9 @@ export default [
                         $props: {
                             placeholder: 'Agree?',
                             value: '$data.user.agree',
-                        }
-                    }
-                ]
+                        },
+                    },
+                ],
             },
             {
                 $type: 'n-form-item',
@@ -91,27 +91,27 @@ export default [
                             options: [
                                 {
                                     label: 'Nowhere Man',
-                                    value: 'song4'
+                                    value: 'song4',
                                 },
                                 {
                                     label: 'Think For Yourself',
-                                    value: 'song5'
+                                    value: 'song5',
                                 },
-                            ]
-                        }
-                    }
-                ]
+                            ],
+                        },
+                    },
+                ],
             },
             {
                 $type: 'n-form-item',
                 $children: [
                     {
                         $type: 'n-button',
-                        $children: 'Send Form'
-                    }
-                ]
+                        $children: 'Send Form',
+                    },
+                ],
             },
 
-        ]
-    }
-] as NaiveUISchema
+        ],
+    },
+] as NaiveUISchema;

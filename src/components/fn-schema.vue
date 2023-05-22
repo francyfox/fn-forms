@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import naiveUISchemaRender, { NaiveUISchema } from "../module/schema/schema.parser.ts";
-import {useSlots} from "vue";
+import naiveUISchemaRender, { NaiveUISchema } from '../module/schema/schema.parser.ts';
+import { useSlots }                           from 'vue';
 
-const slots = useSlots()
+const slots = useSlots();
 const props = withDefaults(defineProps<{
   data: any,
   schema: NaiveUISchema
 }>(), {
-  data: {}
-})
-defineEmits(['update:data'])
+  data: {},
+});
+defineEmits(['update:data']);
 
-const NFormNode = naiveUISchemaRender(props.schema, props.data)
+const NFormNode = naiveUISchemaRender(props.schema, props.data);
 
 </script>
 
 <template>
   <div class="schema">
-      <h1>Test</h1>
-      <KeepAlive>
-        <Suspense>
-          <n-form-node/>
-          <template #fallback>
-            Loading...
-          </template>
-        </Suspense>
-      </KeepAlive>
+    <h1>Test</h1>
+    <KeepAlive>
+      <Suspense>
+        <n-form-node/>
+        <template #fallback>
+          Loading...
+        </template>
+      </Suspense>
+    </KeepAlive>
   </div>
 </template>
 
