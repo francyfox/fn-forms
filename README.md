@@ -8,8 +8,10 @@
 
 #### TREE
 - [How to use](#how-to-use)
+- - [Test schema](#json-test-scheme)
 - [Available components](#available-components)
-
+- [Changelog](#changelog)
+- [TODO](#todo)
 
 ### How to Use
 
@@ -27,6 +29,7 @@ Import component
 import { FnSchema } from '@francyfox/fn-forms'
 import { NaiveUISchema } from "@francyfox/fn-forms/module/schema";
 
+const formData = ref()
 const json = {
   $type: 'n-form',
   children: []
@@ -34,7 +37,7 @@ const json = {
 </script>
 
 <template>
-  <fn-schema :schema="json"/>
+  <fn-schema v-model:data="formData" :schema="TestSchema"/>
 </template>
 ```
 
@@ -47,6 +50,14 @@ const json = {
 - `$prop` equal component props
 - `$children` equal component slot. U can use string for default slot, array for children (h - render functions) 
   json elements or object with slot functions `{ default: () => 'button text'}`
+
+If you want set data in props (value, checked) use string `$data`. Simply `$data.user.name` converted to -> 
+`formData.user.name`, formData gets from v-model:data
+
+##### Supported alias
+
+- `$data` equal v-model:data (only in value, checked props)
+- ...
 
 ##### Json test scheme
 ```json
@@ -225,8 +236,23 @@ const formData = ref({
 
 
 #### Available components:
-- Form
-- Input
+```ts
+export enum NaiveUITypes {
+  Form = 'n-form',
+  Input = 'n-input',
+  InputNumber = 'n-input-number',
+  FormItem = 'n-form-item',
+  Button = 'n-button',
+  Space = 'n-space',
+  Select = 'n-select',
+  Checkbox = 'n-checkbox',
+  Radio = 'n-radio',
+  RadioGroup = 'n-radio-group',
+  Switch = 'n-switch',
+  DynamicTags = 'n-dynamic-tags'
+}
+```
 
+#### CHANGELOG
 
-#### CHANG
+#### TODO:
