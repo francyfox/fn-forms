@@ -9,7 +9,9 @@ const formData = ref({
     email: 'test@mail.ru',
     age: 16,
     agree: true,
-    gender: 'song4',
+    gender: ['song4'],
+    live: 'live',
+    test: false
   },
 });
 

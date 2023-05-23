@@ -1,22 +1,27 @@
-import { h, ref, Ref, RendererElement, RendererNode, resolveComponent, VNode } from 'vue';
+import { h, ref, Ref, resolveComponent, VNode } from 'vue';
 import {
-    NaiveUISchema,
     NaiveUISchemaEl,
-    NaiveUITypes,
     resolveRefVarByPath,
-    updateFormItemValue,
-}                                           from './schema.parser';
-import { hasCheckedAction, hasValueAction } from './schema.model.ts';
+    updateValueHandler,
+}                                                                              from './schema.parser';
+import {
+    hasActions,
+    hasChangeAction,
+    hasCheckedAction,
+    hasValueAction, NaiveUITypes,
+} from './schema.model';
 
-export function renderChildren(children: NaiveUISchema | string, formData: Ref<object>): VNode<RendererNode, RendererElement, {
-    [p: string]: any
-}>[] | { default: () => NaiveUISchema | string } {
-    return (Array.isArray(children))
-        ? children.map((i: NaiveUISchemaEl) => renderElement(i, formData))
-        : {default: () => children ?? ''};
+export function renderChildren(children: any, formData: Ref<object>): VNode<any>[] | object | undefined {
+    if (Array.isArray(children)) {
+        return children.map((i: NaiveUISchemaEl) => renderElement(i, formData))
+    } else if (children instanceof Object) {
+        return children
+    } else if (typeof children === 'string') {
+        return { default: () => children ?? '' }
+    }
 }
 
-export function renderElement(_el: NaiveUISchemaEl, formData: Ref<object>) {
+export function renderElement(_el: NaiveUISchemaEl, formData: Ref<object>): VNode<any> {
     const index = Object.values(NaiveUITypes).indexOf(_el.$type as unknown as NaiveUITypes);
 
     if (index === -1) {
@@ -29,20 +34,26 @@ export function renderElement(_el: NaiveUISchemaEl, formData: Ref<object>) {
     let {$children, $props} = schemeEl;
     const component = resolveComponent(_el.$type);
 
-    if (hasValueAction(_el.$type) || hasCheckedAction(_el.$type)) {
-        const path = $props.value as string;
-        $props.value = ref(resolveRefVarByPath(path, formData)) as Ref<string>;
+    if (hasActions(_el.$type)) {
+        const path = ($props.checked)
+            ? $props.checked as string
+            : $props.value as string
 
         if (hasValueAction(_el.$type)) {
             $props = {
                 ...$props,
-                onUpdateValue: (v: any) => updateFormItemValue({$props, v, path, formData}),
+                onUpdateValue: (v: any) => updateValueHandler({$props, v, path, formData}),
             };
         } else if (hasCheckedAction(_el.$type)) {
+            $props.checked = ref(resolveRefVarByPath(path, formData))
             $props = {
                 ...$props,
-                onUpdateChecked: (v: any) => updateFormItemValue({$props, v, path, formData}),
+                onUpdateChecked: (v: any) => updateValueHandler({$props, v, path, formData}),
             };
+        }
+
+        if (!hasChangeAction(_el.$type)) {
+            $props.value = ref(resolveRefVarByPath(path, formData)) as Ref<string>;
         }
     }
 

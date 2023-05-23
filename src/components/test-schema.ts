@@ -87,6 +87,7 @@ export default [
                         $type: 'n-select',
                         $children: 'I agree',
                         $props: {
+                            multiple: true,
                             value: '$data.user.gender',
                             options: [
                                 {
@@ -101,6 +102,46 @@ export default [
                         },
                     },
                 ],
+            },
+            {
+                $type: 'n-radio-group',
+                $props: {
+                    value: '$data.user.live',
+                    name: 'state'
+                },
+                $children: [
+                    {
+                        $type: 'n-radio',
+                        $children: 'Live!',
+                        $props: {
+                            value: 'live',
+                        },
+                    },
+                    {
+                        $type: 'n-radio',
+                        $children: 'Dead!',
+                        $props: {
+                            label: 'Dead!',
+                            value: 'dead',
+                        },
+                    },
+                ],
+            },
+            {
+                $type: 'n-form-item',
+                $children: [
+                    {
+                        $type: 'n-switch',
+                        $children: {
+                            checked: () => 'TEst',
+                            unchecked: () => 'NonTest'
+                        },
+                        $props: {
+                            value: '$data.user.test',
+                            railStyle: () => 'background: red'
+                        }
+                    }
+                ]
             },
             {
                 $type: 'n-form-item',

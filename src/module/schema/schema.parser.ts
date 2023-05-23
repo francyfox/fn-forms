@@ -3,34 +3,8 @@ import NaiveUISchema = FNScheme.NaiveUISchema;
 import { nestedObjectByPath, resolve } from '../../helper/helper.path';
 import { Ref }                         from 'vue';
 import merge                           from 'deepmerge';
-import { renderElement }               from './schema.render.ts';
-import { fnValueArguments }            from './schema.model.ts';
-
-export enum NaiveUITypes {
-    Form = 'n-form',
-    Input = 'n-input',
-    InputNumber = 'n-input-number',
-    FormItem = 'n-form-item',
-    Button = 'n-button',
-    Space = 'n-space',
-    Select = 'n-select',
-    Checkbox = 'n-checkbox',
-    Radio = 'n-radio',
-    RadioGroup = 'n-radio-group'
-}
-
-export const sortComponentsByAction = {
-    value: [
-        NaiveUITypes.Input,
-        NaiveUITypes.InputNumber,
-        NaiveUITypes.Select,
-        NaiveUITypes.RadioGroup,
-    ],
-    checked: [
-        NaiveUITypes.Checkbox,
-        NaiveUITypes.Radio,
-    ],
-};
+import { renderElement }                  from './schema.render.ts';
+import { fnValueArguments, NaiveUITypes } from './schema.model.ts';
 
 export type NaiveUISchema = NaiveUISchemaEl[]
 
@@ -51,14 +25,16 @@ export default function naiveUISchemaRender(json: NaiveUISchema, data: Ref<objec
 }
 
 
-export function updateFormItemValue(argument: fnValueArguments) {
-    const {$props, v, path, formData} = argument;
+export function updateValueHandler(argument: fnValueArguments) {
+    const {$props, v, path, formData} = argument
     const inputDeep = nestedObjectByPath(path, v);
+    console.log(path.replace('$data.', '').split('.'))
     const merged = merge(formData, inputDeep, {
-        arrayMerge: () => path.replace('$data.', '').split('.'),
+        arrayMerge: (_, sourceArray) => sourceArray, // TODO: need add overwrite by path (+ multipath)
     });
     Object.assign(formData, merged);
-    return ($props.value.value)
+
+    return ($props.value.value !== undefined)
         ? $props.value.value = v
         : $props.checked.value = v;
 }

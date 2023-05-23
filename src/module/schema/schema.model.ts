@@ -11,7 +11,9 @@ export enum NaiveUITypes {
     Select = 'n-select',
     Checkbox = 'n-checkbox',
     Radio = 'n-radio',
-    RadioGroup = 'n-radio-group'
+    RadioGroup = 'n-radio-group',
+    Switch = 'n-switch',
+    DynamicTags = 'n-dynamic-tags'
 }
 
 export const sortComponentsByAction = {
@@ -20,15 +22,25 @@ export const sortComponentsByAction = {
         NaiveUITypes.InputNumber.valueOf(),
         NaiveUITypes.Select.valueOf(),
         NaiveUITypes.RadioGroup.valueOf(),
+        NaiveUITypes.Switch.valueOf(),
+        NaiveUITypes.DynamicTags.valueOf()
+    ],
+    change: [
+        NaiveUITypes.Radio.valueOf(),
     ],
     checked: [
         NaiveUITypes.Checkbox.valueOf(),
-        NaiveUITypes.Radio.valueOf(),
     ],
 }
 
 export const hasValueAction = (v: string) => sortComponentsByAction.value.includes(v)
 export const hasCheckedAction = (v: string) => sortComponentsByAction.checked.includes(v)
+export const hasChangeAction = (v: string) => sortComponentsByAction.change.includes(v)
+
+export const hasActions = (v:string) => Object.values(sortComponentsByAction)
+    .some((i) => {
+        return i.includes(v)
+    })
 
 export type NaiveUISchema = NaiveUISchemaEl[]
 
