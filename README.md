@@ -1,9 +1,9 @@
 # FN-Scheme
 #### Form schema component for Naive UI framework. Generate form from json like formkit schema component
 
-- Package type: `Module`
-- Original size: `???`
-- Bzip + minify: `???`
+- Package type: `es`
+- Original size: `~14.2kb`
+- Bzip + minify: `~80.4kb`
 
 
 #### TREE
@@ -26,8 +26,7 @@ Import component
 ```vue
 
 <script setup type="ts">
-import { FnSchema } from '@francyfox/fn-forms'
-import { NaiveUISchema } from "@francyfox/fn-forms/module/schema";
+import { FnSchema, NaiveUISchema } from '@francyfox/fn-forms'
 
 const formData = ref()
 const json = {

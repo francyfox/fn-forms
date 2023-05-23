@@ -1,6 +1,3 @@
-// @ts-ignore
-import NaiveUISchema = FNScheme.NaiveUISchema;
-
 export enum NaiveUITypes {
     Form = 'n-form',
     Input = 'n-input',

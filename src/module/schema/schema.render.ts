@@ -11,7 +11,7 @@ import {
     hasValueAction, NaiveUITypes,
 } from './schema.model';
 
-export function renderChildren(children: any, formData: Ref<object>): VNode<any>[] | object | undefined {
+export function renderChildren(children: any, formData: Ref<object>): Array<VNode | string> | object | undefined {
     if (Array.isArray(children)) {
         return children.map((i: NaiveUISchemaEl) => renderElement(i, formData))
     } else if (children instanceof Object) {

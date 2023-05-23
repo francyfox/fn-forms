@@ -3,6 +3,7 @@ import './style.css';
 import App           from './App.vue';
 import naive         from 'naive-ui';
 
+// @ts-ignore
 createApp(App)
     .use(naive)
     .mount('#app');

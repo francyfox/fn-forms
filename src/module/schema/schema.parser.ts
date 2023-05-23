@@ -1,7 +1,5 @@
-// @ts-ignore
-import NaiveUISchema = FNScheme.NaiveUISchema;
 import { nestedObjectByPath, resolve } from '../../helper/helper.path';
-import { Ref }                         from 'vue';
+import { Ref }                  from 'vue';
 import merge                           from 'deepmerge';
 import { renderElement }                  from './schema.render.ts';
 import { fnValueArguments, NaiveUITypes } from './schema.model.ts';
@@ -18,7 +16,7 @@ export const resolveRefVarByPath = (value: string, data: Ref<object>) => {
     const path = value.replace('$data.', '');
     return resolve(path, data, '.');
 };
-export default function naiveUISchemaRender(json: NaiveUISchema, data: Ref<object>) {
+export default function naiveUISchemaRender(json: NaiveUISchema, data: Ref<object>): {} {
     const [first] = json;
 
     return renderElement(first, data);
