@@ -10,6 +10,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     FnSchema: typeof import('./src/components/fn-schema.vue')['default']
+    NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     Test: typeof import('./src/components/test.vue')['default']
   }
 }

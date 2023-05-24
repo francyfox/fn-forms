@@ -59,7 +59,7 @@ If you want set data in props (value, checked) use string `$data`. Simply `$data
 - ...
 
 ##### Json test scheme
-```json
+```ts
 [
     {
         $type: 'n-form',

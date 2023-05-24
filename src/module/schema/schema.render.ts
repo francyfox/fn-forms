@@ -48,7 +48,7 @@ export function renderElement(_el: NaiveUISchemaEl, formData: Ref<object>): VNod
             $props.checked = ref(resolveRefVarByPath(path, formData))
             $props = {
                 ...$props,
-                onUpdateChecked: (v: any) => updateValueHandler({$props, v, path, formData}),
+                onUpdateChecked: (v: any) => updateValueHandler({$props, v, path, formData}, true),
             };
         }
 

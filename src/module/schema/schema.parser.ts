@@ -23,16 +23,15 @@ export default function naiveUISchemaRender(json: NaiveUISchema, data: Ref<objec
 }
 
 
-export function updateValueHandler(argument: fnValueArguments) {
+export function updateValueHandler(argument: fnValueArguments, checked: boolean = false) {
     const {$props, v, path, formData} = argument
     const inputDeep = nestedObjectByPath(path, v);
-    console.log(path.replace('$data.', '').split('.'))
     const merged = merge(formData, inputDeep, {
         arrayMerge: (_, sourceArray) => sourceArray, // TODO: need add overwrite by path (+ multipath)
     });
     Object.assign(formData, merged);
 
-    return ($props.value.value !== undefined)
+    return (!checked)
         ? $props.value.value = v
         : $props.checked.value = v;
 }
