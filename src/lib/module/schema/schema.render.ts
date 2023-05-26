@@ -3,21 +3,22 @@ import {
     NaiveUISchemaEl,
     resolveRefVarByPath,
     updateValueHandler,
-}                                                                              from './schema.parser';
+}                                               from '../../module/schema/schema.parser.ts';
 import {
     hasActions,
     hasChangeAction,
     hasCheckedAction,
-    hasValueAction, NaiveUITypes,
-} from './schema.model';
+    hasValueAction,
+    NaiveUITypes,
+}                                               from '../../module/schema/schema.model.ts';
 
 export function renderChildren(children: any, formData: Ref<object>): Array<VNode | string> | object | undefined {
     if (Array.isArray(children)) {
-        return children.map((i: NaiveUISchemaEl) => renderElement(i, formData))
+        return children.map((i: NaiveUISchemaEl) => renderElement(i, formData));
     } else if (children instanceof Object) {
-        return children
+        return children;
     } else if (typeof children === 'string') {
-        return { default: () => children ?? '' }
+        return { default: () => children ?? '' };
     }
 }
 
@@ -30,25 +31,29 @@ export function renderElement(_el: NaiveUISchemaEl, formData: Ref<object>): VNod
         );
     }
 
-    const {$type, ...schemeEl} = _el;
-    let {$children, $props} = schemeEl;
+    const { $type, ...schemeEl } = _el;
+    let { $children, $props } = schemeEl;
     const component = resolveComponent(_el.$type);
+
+    if ($type === NaiveUITypes.Upload && $props) {
+        $props.defaultFileList = ref(resolveRefVarByPath($props.defaultFileList, formData)) as Ref<string>;
+    }
 
     if (hasActions(_el.$type)) {
         const path = ($props.checked)
             ? $props.checked as string
-            : $props.value as string
+            : $props.value as string;
 
         if (hasValueAction(_el.$type)) {
             $props = {
                 ...$props,
-                onUpdateValue: (v: any) => updateValueHandler({$props, v, path, formData}),
+                onUpdateValue: (v: any) => updateValueHandler({ $props, v, path, formData }),
             };
         } else if (hasCheckedAction(_el.$type)) {
-            $props.checked = ref(resolveRefVarByPath(path, formData))
+            $props.checked = ref(resolveRefVarByPath(path, formData));
             $props = {
                 ...$props,
-                onUpdateChecked: (v: any) => updateValueHandler({$props, v, path, formData}, true),
+                onUpdateChecked: (v: any) => updateValueHandler({ $props, v, path, formData }, true),
             };
         }
 

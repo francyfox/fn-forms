@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import naiveUISchemaRender, { NaiveUISchema } from '../module/schema/schema.parser.ts';
+import naiveUISchemaRender, { NaiveUISchema } from 'src/lib/module/schema/schema.parser.ts';
 
 const props = withDefaults(defineProps<{
   data: any,

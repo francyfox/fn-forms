@@ -9,8 +9,14 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    FnSchema: typeof import('./src/components/fn-schema.vue')['default']
+    FnSchema: typeof import('./src/lib/components/fn-schema.vue')['default']
+    FnUploadDnd: typeof import('./src/lib/components/naive-ui/fn-upload-dnd.vue')['default']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
-    Test: typeof import('./src/components/test.vue')['default']
+    NIcon: typeof import('naive-ui')['NIcon']
+    NP: typeof import('naive-ui')['NP']
+    NText: typeof import('naive-ui')['NText']
+    NUpload: typeof import('naive-ui')['NUpload']
+    NUploadDnd: typeof import('./src/lib/components/naive-ui/n-upload-dnd.vue')['default']
+    Test: typeof import('./src/lib/components/test.vue')['default']
   }
 }

@@ -1,13 +1,29 @@
 {
-  "name": "fn-forms",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "@francyfox/fn-forms",
+  "description": "Naive UI component. Generate form from json like formkit schema component",
+  "author": "hellisart <7info7web@gmail.com>",
+  "private": false,
+  "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/francyfox/fn-forms.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "naive ui component",
+    "form generator"
+  ],
+  "files": [
+    "src/lib"
+  ],
   "dependencies": {
     "deepmerge": "^4.3.1",
     "naive-ui": "^2.34.3",

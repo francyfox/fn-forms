@@ -22,6 +22,7 @@ export default defineConfig({
         vue(),
         dts(),
         Components({
+            dirs: ['src/components/naive-ui'],
             resolvers: [NaiveUiResolver()]
         })
     ],

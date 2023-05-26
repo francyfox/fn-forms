@@ -1,9 +1,13 @@
-import { createApp } from 'vue';
+import { createApp }  from 'vue';
 import './style.css';
-import App           from './App.vue';
-import naive         from 'naive-ui';
+import App            from './App.vue';
+import naive       from 'naive-ui';
+import FnUploadDnd from './lib/components/naive-ui/fn-upload-dnd.vue'
 
 // @ts-ignore
-createApp(App)
+const app = createApp(App)
     .use(naive)
-    .mount('#app');
+
+// @ts-ignore
+app.component('FnUploadDnd', FnUploadDnd)
+app.mount('#app')

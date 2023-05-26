@@ -1,9 +1,9 @@
 # FN-Scheme
 #### Form schema component for Naive UI framework. Generate form from json like formkit schema component
 
+P.S. alternative @chronicstone/vue-sweetforms
+
 - Package type: `es`
-- Original size: `~14.2kb`
-- Bzip + minify: `~80.4kb`
 
 
 #### TREE
