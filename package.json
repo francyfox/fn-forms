@@ -3,7 +3,7 @@
   "description": "Naive UI component. Generate form from json like formkit schema component",
   "author": "hellisart <7info7web@gmail.com>",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.1.2",
   "license": "MIT",
   "repository": {
     "type": "git",

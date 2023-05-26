@@ -1,6 +1,6 @@
 import { nestedObjectByPath, resolve }    from '../../helper/helper.path.ts';
 import { Ref }                            from 'vue';
-import * as merge                         from 'deepmerge';
+import deepmerge from 'deepmerge'
 import { renderElement }                  from '../../module/schema/schema.render.ts';
 import { fnValueArguments, NaiveUITypes } from '../../module/schema/schema.model.ts';
 
@@ -26,7 +26,7 @@ export default function naiveUISchemaRender(json: NaiveUISchema, data: Ref<objec
 export function updateValueHandler(argument: fnValueArguments, checked: boolean = false) {
     const { $props, v, path, formData } = argument;
     const inputDeep = nestedObjectByPath(path, v);
-    const merged = merge(formData, inputDeep, {
+    const merged = deepmerge(formData, inputDeep, {
         arrayMerge: (_, sourceArray) => sourceArray, // TODO: need add overwrite by path (+ multipath)
     });
     Object.assign(formData, merged);
