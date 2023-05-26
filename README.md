@@ -254,4 +254,8 @@ export enum NaiveUITypes {
 
 #### CHANGELOG
 
+##### v0.0.2
+
+- Remove from npm compiled js dist and assert ts folder
+
 #### TODO:
