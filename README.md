@@ -235,8 +235,7 @@ const formData = ref({
 
 
 #### Available components:
-```ts
-export enum NaiveUITypes {
+```markdown
   Form = 'n-form',
   Input = 'n-input',
   InputNumber = 'n-input-number',
@@ -248,11 +247,16 @@ export enum NaiveUITypes {
   Radio = 'n-radio',
   RadioGroup = 'n-radio-group',
   Switch = 'n-switch',
-  DynamicTags = 'n-dynamic-tags'
-}
+  DynamicTags = 'n-dynamic-tags',
+  Upload = 'n-upload',
+  UploadDnd = 'fn-upload-dnd'
 ```
 
 #### CHANGELOG
+
+##### v0.1.0
+
+- fix import error
 
 ##### v0.0.2
 
