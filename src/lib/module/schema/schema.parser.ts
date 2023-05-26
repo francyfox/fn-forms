@@ -1,6 +1,6 @@
 import { nestedObjectByPath, resolve }    from '../../helper/helper.path.ts';
 import { Ref }                            from 'vue';
-import merge                              from 'deepmerge';
+import * as merge                         from 'deepmerge';
 import { renderElement }                  from '../../module/schema/schema.render.ts';
 import { fnValueArguments, NaiveUITypes } from '../../module/schema/schema.model.ts';
 

@@ -14,7 +14,7 @@ import {
 
 export function renderChildren(children: any, formData: Ref<object>): Array<VNode | string> | object | undefined {
     if (Array.isArray(children)) {
-        return children.map((i: NaiveUISchemaEl) => renderElement(i, formData));
+        return children.map((i: NaiveUISchemaEl) => renderElement(i, formData)); // TODO: default render broke the component
     } else if (children instanceof Object) {
         return children;
     } else if (typeof children === 'string') {
