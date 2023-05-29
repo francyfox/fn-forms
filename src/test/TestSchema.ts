@@ -3,6 +3,15 @@ import type { NaiveUISchema } from '../lib/module/schema/schema.model';
 export default [
     {
         $type: 'n-form',
+        $props: {
+            rules: {
+                user: {
+                    name: {
+                        required: true
+                    }
+                }
+            }
+        },
         $children: [
             {
                 $type: 'n-space',

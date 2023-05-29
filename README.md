@@ -1,9 +1,9 @@
-# FN-Scheme
+# FN-Scheme TS
 #### Form schema component for Naive UI framework. Generate form from json like formkit schema component
 
 P.S. alternative @chronicstone/vue-sweetforms
 
-- Package type: `es`
+- Package type: `ts files`
 
 
 #### TREE
@@ -26,7 +26,7 @@ Import component
 ```vue
 
 <script setup type="ts">
-import { FnSchema, NaiveUISchema } from '@francyfox/fn-forms'
+import { FnSchema, NaiveUISchema } from "@francyfox/fn-forms/src/lib"
 
 const formData = ref()
 const json = {
@@ -253,6 +253,11 @@ const formData = ref({
 ```
 
 #### CHANGELOG
+
+##### 0.1.0 - 0.1.3
+
+- change deepmerge to deepmerge-ts
+- disable compile version. Only TS
 
 ##### v0.1.0
 

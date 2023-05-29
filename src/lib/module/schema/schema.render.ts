@@ -62,6 +62,7 @@ export function renderElement(_el: NaiveUISchemaEl, formData: Ref<object>): VNod
         }
     }
 
+    console.log($props)
     // @ts-ignore
     return h(component, $props, renderChildren($children, formData));
 }
