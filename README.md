@@ -1,7 +1,10 @@
-# FN-Scheme TS Deprecated
-#### Form schema component for Naive UI framework. Generate form from json like formkit schema component
+## Not actual
 
 **P.S. alternative @form-create/naive-ui**
+# ~~FN-Scheme TS~~ 
+#### Form schema component for Naive UI framework. Generate form from json like formkit schema component
+
+
 
 - Package type: `ts files`
 
@@ -267,4 +270,4 @@ const formData = ref({
 
 - Remove from npm compiled js dist and assert ts folder
 
-#### TODO:
+#### TODO:~~
