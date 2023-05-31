@@ -47,13 +47,13 @@ export function renderElement(_el: NaiveUISchemaEl, formData: Ref<object>): VNod
         if (hasValueAction(_el.$type)) {
             $props = {
                 ...$props,
-                onUpdateValue: (v: any) => updateValueHandler({ $props, v, path, formData }),
+                'onUpdate:value': (v: any) => updateValueHandler({ $props, v, path, formData }),
             };
         } else if (hasCheckedAction(_el.$type)) {
             $props.checked = ref(resolveRefVarByPath(path, formData));
             $props = {
                 ...$props,
-                onUpdateChecked: (v: any) => updateValueHandler({ $props, v, path, formData }, true),
+                'onUpdate:checked': (v: any) => updateValueHandler({ $props, v, path, formData }, { checked: true }),
             };
         }
 
@@ -62,7 +62,6 @@ export function renderElement(_el: NaiveUISchemaEl, formData: Ref<object>): VNod
         }
     }
 
-    console.log($props)
     // @ts-ignore
     return h(component, $props, renderChildren($children, formData));
 }

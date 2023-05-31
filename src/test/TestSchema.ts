@@ -6,9 +6,12 @@ export default [
         $props: {
             rules: {
                 user: {
-                    name: {
-                        required: true
-                    }
+                    name: [
+                        {
+                            required: true,
+                            trigger: 'input'
+                        }
+                    ]
                 }
             }
         },

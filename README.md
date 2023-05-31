@@ -1,7 +1,7 @@
-# FN-Scheme TS
+# FN-Scheme TS Deprecated
 #### Form schema component for Naive UI framework. Generate form from json like formkit schema component
 
-P.S. alternative @chronicstone/vue-sweetforms
+**P.S. alternative @form-create/naive-ui**
 
 - Package type: `ts files`
 

@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     FnSchema: typeof import('./src/lib/components/fn-schema.vue')['default']
     FnUploadDnd: typeof import('./src/lib/components/naive-ui/fn-upload-dnd.vue')['default']
+    NButton: typeof import('naive-ui')['NButton']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NIcon: typeof import('naive-ui')['NIcon']
     NP: typeof import('naive-ui')['NP']
